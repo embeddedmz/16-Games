@@ -64,8 +64,8 @@ int main()
     pBody[i]->CreateFixture(&circle,5);
     pBody[i]->SetFixedRotation(true);
     }
-    pBody[0]->SetUserData("player1");
-    pBody[1]->SetUserData("player2");
+    pBody[0]->SetUserData(const_cast<char*>("player1"));
+    pBody[1]->SetUserData(const_cast<char*>("player2"));
 
     /// ball /////////////
     bdef.position.Set(5,1);
@@ -77,7 +77,7 @@ int main()
     fdef.restitution=0.95;
     fdef.density=0.2;
     b->CreateFixture(&fdef);
-    b->SetUserData("ball");
+    b->SetUserData(const_cast<char*>("ball"));
     /////////////////////////
     
     bool onGround=0;
