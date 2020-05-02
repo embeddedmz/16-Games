@@ -20,7 +20,7 @@ option(BUILD_VOLLEYBALL     "Build the Volleyball game."               ON)
 option(BUILD_ASTEROIDS      "Build the Asteroids game."                ON)
 
 if(BUILD_TETRIS)
-	add_subdirectory("01 Tetris")
+add_subdirectory("01 Tetris")
 endif(BUILD_TETRIS)
 
 if(BUILD_DOODLE_JUMP)
