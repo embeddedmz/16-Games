@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -99,7 +101,7 @@ int main()
        if (i>800 && i%20==0) {line.spriteX=-1.2; line.sprite=object[1];}
        if (i==400)           {line.spriteX=-1.2; line.sprite=object[7];}
 
-       if (i>750) line.y = sin(i/30.0)*1500;
+       if (i>750) line.y = std::sin(i/30.0)*1500;
 
        lines.push_back(line);
      }

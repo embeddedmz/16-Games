@@ -1,6 +1,9 @@
-#include <SFML/Graphics.hpp>
-#include <time.h>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
 #include <list>
+
+#include <SFML/Graphics.hpp>
 using namespace sf;
 
 const int W = 1200;
@@ -119,8 +122,8 @@ class bullet: public Entity
 
    void  update()
    {
-     dx=cos(angle*DEGTORAD)*6;
-     dy=sin(angle*DEGTORAD)*6;
+     dx=std::cos(angle*DEGTORAD)*6;
+     dy=std::sin(angle*DEGTORAD)*6;
      // angle+=rand()%7-3;  /*try this*/
      x+=dx;
      y+=dy;
@@ -144,14 +147,14 @@ class player: public Entity
    void update()
    {
      if (thrust)
-      { dx+=cos(angle*DEGTORAD)*0.2;
-        dy+=sin(angle*DEGTORAD)*0.2; }
+      { dx+=std::cos(angle*DEGTORAD)*0.2;
+        dy+=std::sin(angle*DEGTORAD)*0.2; }
      else
       { dx*=0.99;
         dy*=0.99; }
 
     int maxSpeed=15;
-    float speed = sqrt(dx*dx+dy*dy);
+    float speed = std::sqrt(dx*dx+dy*dy);
     if (speed>maxSpeed)
      { dx *= maxSpeed/speed;
        dy *= maxSpeed/speed; }
@@ -176,7 +179,7 @@ bool isCollide(Entity *a,Entity *b)
 
 int main()
 {
-    srand(time(0));
+    srand(std::time(0));
 
     RenderWindow app(VideoMode(W, H), "Asteroids!");
     app.setFramerateLimit(60);
