@@ -1,5 +1,9 @@
+#include <algorithm>
+#include <ctime>
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
-#include <time.h>
+
 using namespace sf;
 
 const int M = 20;
@@ -21,12 +25,21 @@ int figures[7][4] =
     2,3,4,5, // O
 };
 
+unsigned score = 0;
+
 bool check()
 {
-   for (int i=0;i<4;i++)
-      if (a[i].x<0 || a[i].x>=N || a[i].y>=M) return 0;
-      else if (field[a[i].y][a[i].x]) return 0;
-
+    for (int i = 0; i < 4; i++)
+    {
+        if (a[i].x < 0 || a[i].x >= N || a[i].y >= M)
+        {
+            return 0;
+        }
+        if (field[a[i].y][a[i].x])
+        {
+            return 0;
+        }
+    }
    return 1;
 };
 
@@ -51,9 +64,7 @@ int main()
 
     while (window.isOpen())
     {
-        float time = clock.getElapsedTime().asSeconds();
-        clock.restart();
-        timer+=time;
+        timer += clock.restart().asSeconds();
 
         Event e;
         while (window.pollEvent(e))
@@ -103,6 +114,11 @@ int main()
             a[i].x = figures[n][i] % 2;
             a[i].y = figures[n][i] / 2;
            }
+         if (!check())
+         {
+             window.close();
+             break;
+         }
         }
 
          timer=0;
@@ -115,10 +131,25 @@ int main()
         int count=0;
         for (int j=0;j<N;j++)
         {
-            if (field[i][j]) count++;
+            if (field[i][j])
+            {
+                count++;
+            }
             field[k][j]=field[i][j];
         }
-        if (count<N) k--;
+        if (count < N)
+        {
+            k--;
+        }
+        else
+        {
+            // increase user's score
+            ++score;
+        }
+    }
+    if (k != 0)
+    {
+        std::fill(field[0], field[0] + (N * (k + 1)), 0);
     }
 
     dx=0; rotate=0; delay=0.3;
@@ -148,6 +179,9 @@ int main()
     window.draw(frame);
     window.display();
     }
+
+    std::cout << "Game Over\n";
+    std::cout << "Your score : " << score << std::endl;
 
     return 0;
 }
