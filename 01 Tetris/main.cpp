@@ -62,6 +62,16 @@ int main()
 
     Clock clock;
 
+    {
+        const int firstFigure = rand() % 7;
+        for (int i = 0; i < 4; i++)
+        {
+
+            a[i].x = figures[firstFigure][i] % 2;
+            a[i].y = figures[firstFigure][i] / 2;
+        }
+    }
+
     while (window.isOpen())
     {
         timer += clock.restart().asSeconds();
