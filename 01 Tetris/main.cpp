@@ -25,6 +25,7 @@ int figures[7][4] =
     2,3,4,5, // O
 };
 
+bool pause = false;
 unsigned score = 0;
 
 bool check()
@@ -74,7 +75,8 @@ int main()
 
     while (window.isOpen())
     {
-        timer += clock.restart().asSeconds();
+        if (!pause)
+            timer += clock.restart().asSeconds();
 
         Event e;
         while (window.pollEvent(e))
@@ -82,11 +84,21 @@ int main()
             if (e.type == Event::Closed)
                 window.close();
 
+            if (e.type == Event::LostFocus)
+                pause = true;
+
+            if (e.type == Event::GainedFocus)
+                pause = false;
+
             if (e.type == Event::KeyPressed)
-              if (e.key.code==Keyboard::Up) rotate=true;
+              if (e.key.code == Keyboard::Escape) pause = !pause;
+              else if (e.key.code==Keyboard::Up) rotate=true;
               else if (e.key.code==Keyboard::Left) dx=-1;
               else if (e.key.code==Keyboard::Right) dx=1;
         }
+
+        if (pause)
+            continue;
 
     if (Keyboard::isKeyPressed(Keyboard::Down)) delay=0.05;
 
