@@ -25,6 +25,7 @@ int figures[7][4] =
     2,3,4,5, // O
 };
 
+bool escapeButtonStatus = false;
 bool pause = false;
 unsigned score = 0;
 
@@ -75,7 +76,7 @@ int main()
 
     while (window.isOpen())
     {
-        if (!pause)
+        if (!pause || !escapeButtonStatus)
             timer += clock.restart().asSeconds();
 
         Event e;
@@ -91,13 +92,13 @@ int main()
                 pause = false;
 
             if (e.type == Event::KeyPressed)
-              if (e.key.code == Keyboard::Escape) pause = !pause;
+              if (e.key.code == Keyboard::Escape) escapeButtonStatus = !escapeButtonStatus;
               else if (e.key.code==Keyboard::Up) rotate=true;
               else if (e.key.code==Keyboard::Left) dx=-1;
               else if (e.key.code==Keyboard::Right) dx=1;
         }
 
-        if (pause)
+        if (pause || escapeButtonStatus)
             continue;
 
     if (Keyboard::isKeyPressed(Keyboard::Down)) delay=0.05;
