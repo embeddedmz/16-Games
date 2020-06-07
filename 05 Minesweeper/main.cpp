@@ -6,7 +6,7 @@ int main()
 {
     srand(time(0));
 
-    RenderWindow app(VideoMode(400, 400), "Minesweeper!");
+    RenderWindow app(VideoMode(400, 400), "Minesweeper!", Style::Titlebar | Style::Close);
 
     int w=32;
     int grid[12][12] = { 0 };
@@ -49,6 +49,9 @@ int main()
         int x = pos.x/w;
         int y = pos.y/w;
 
+        if (x > 11) x = 11;
+        if (y > 11) y = 11;
+
         mouseClick = false;
 
         Event e;
@@ -57,7 +60,8 @@ int main()
             if (e.type == Event::Closed)
                 app.close();
 
-            if (e.type == Event::MouseButtonPressed && !gameOver)
+            if (e.type == Event::MouseButtonPressed && !gameOver
+                && x >=1 && x <= 10 && y >=1 && y <= 10)
             {
                 if (e.key.code == Mouse::Left)
                 {
