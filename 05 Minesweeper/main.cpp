@@ -9,8 +9,11 @@ int main()
     RenderWindow app(VideoMode(400, 400), "Minesweeper!");
 
     int w=32;
-    int grid[12][12];
-    int sgrid[12][12]; //for showing
+    int grid[12][12] = { 0 };
+    int sgrid[12][12] = { 0 }; //for showing
+
+    bool gameOver = false;
+    bool mouseClick;
 
     Texture t;
     t.loadFromFile("images/tiles.jpg");
@@ -46,26 +49,43 @@ int main()
         int x = pos.x/w;
         int y = pos.y/w;
 
+        mouseClick = false;
+
         Event e;
         while (app.pollEvent(e))
         {
             if (e.type == Event::Closed)
                 app.close();
 
-            if (e.type == Event::MouseButtonPressed)
-              if (e.key.code == Mouse::Left) sgrid[x][y]=grid[x][y];
-              else if (e.key.code == Mouse::Right) sgrid[x][y]=11;
+            if (e.type == Event::MouseButtonPressed && !gameOver)
+            {
+                if (e.key.code == Mouse::Left)
+                {
+                    sgrid[x][y] = grid[x][y];
+                    mouseClick = true;
+                }
+                else if (e.key.code == Mouse::Right)
+                {
+                    sgrid[x][y] = 11;
+                    mouseClick = true;
+                }
+            }
         }
 
         app.clear(Color::White);
 
+        // keep redrawing after a game over
         for (int i=1;i<=10;i++)
          for (int j=1;j<=10;j++)
           {
-           if (sgrid[x][y]==9) sgrid[i][j]=grid[i][j];
-           s.setTextureRect(IntRect(sgrid[i][j]*w,0,w,w));
-           s.setPosition(i*w, j*w);
-           app.draw(s);
+             if (mouseClick && sgrid[x][y] == 9)
+             {
+                 sgrid[i][j] = grid[i][j];
+                 gameOver = true;
+             }
+             s.setTextureRect(IntRect(sgrid[i][j]*w,0,w,w));
+             s.setPosition(i*w, j*w);
+             app.draw(s);
           }
 
         app.display();
