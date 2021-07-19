@@ -76,7 +76,7 @@ int main()
 {
     RenderWindow window(VideoMode(504, 504), "The Chess! (press SPACE)");
 
-    ConnectToEngine("stockfish.exe");    
+    ConnectToEngine("./stockfish"); //NOTE: this transformes into a stockfish.exe on Windows, ./stockfish on Unix    
 
     Texture t1,t2;
     t1.loadFromFile("images/figures.png"); 
