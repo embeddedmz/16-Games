@@ -76,7 +76,8 @@ int main()
 {
     RenderWindow window(VideoMode(504, 504), "The Chess! (press SPACE)");
 
-    ConnectToEngine("./stockfish"); //NOTE: this transformes into a stockfish.exe on Windows, ./stockfish on Unix    
+    std::string engine_path = "./stockfish"; //NOTE: this transformes into a stockfish.exe on Windows, ./stockfish on Unix
+    ConnectToEngine(engine_path.c_str());     
 
     Texture t1,t2;
     t1.loadFromFile("images/figures.png"); 
@@ -110,7 +111,7 @@ int main()
 
             /////drag and drop///////
             if (e.type == Event::MouseButtonPressed)
-                if (e.key.code == Mouse::Left)
+                if (Mouse::isButtonPressed(sf::Mouse::Left)) //
                   for(int i=0;i<32;i++)
                   if (f[i].getGlobalBounds().contains(pos.x,pos.y))
                       {

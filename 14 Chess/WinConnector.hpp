@@ -10,7 +10,7 @@ HANDLE pipin_w, pipin_r, pipout_w, pipout_r;
 BYTE buffer[2048];
 DWORD writ, excode, read, available;
 
-void ConnectToEngine(char* path)
+void ConnectToEngine(const char* path)
 {
    pipin_w = pipin_r = pipout_w = pipout_r = NULL;
    sats.nLength = sizeof(sats);
