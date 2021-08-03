@@ -1,0 +1,7 @@
+#build files
+CMakeFiles
+Makefile
+CMakeCache.txt
+cmake_install.cmake 
+#binary
+chess
