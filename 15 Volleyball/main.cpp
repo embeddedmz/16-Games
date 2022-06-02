@@ -64,8 +64,8 @@ int main()
     pBody[i]->CreateFixture(&circle,5);
     pBody[i]->SetFixedRotation(true);
     }
-    pBody[0]->SetUserData(const_cast<char*>("player1"));
-    pBody[1]->SetUserData(const_cast<char*>("player2"));
+    pBody[0]->GetUserData().pointer = (uintptr_t)"player1";
+    pBody[1]->GetUserData().pointer = (uintptr_t)"player2";
 
     /// ball /////////////
     bdef.position.Set(5,1);
@@ -77,7 +77,7 @@ int main()
     fdef.restitution=0.95;
     fdef.density=0.2;
     b->CreateFixture(&fdef);
-    b->SetUserData(const_cast<char*>("ball"));
+    b->GetUserData().pointer = (uintptr_t)"ball";
     /////////////////////////
     
     bool onGround=0;
@@ -135,7 +135,7 @@ int main()
             b2Vec2 pos = it->GetPosition();
             float angle = it->GetAngle();
             
-            if (it->GetUserData()=="player1")
+            if (reinterpret_cast<const char*>(it->GetUserData().pointer) == "player1")
             {    
                 sPlayer.setPosition(pos.x*SCALE,pos.y*SCALE);
                 sPlayer.setRotation(angle*DEG);
@@ -143,7 +143,7 @@ int main()
                 window.draw(sPlayer);    
             }
 
-            if (it->GetUserData()=="player2")
+            if (reinterpret_cast<const char*>(it->GetUserData().pointer) == "player2")
             {    
                 sPlayer.setPosition(pos.x*SCALE,pos.y*SCALE);
                 sPlayer.setRotation(angle*DEG);
@@ -151,7 +151,7 @@ int main()
                 window.draw(sPlayer);    
             }
 
-            if (it->GetUserData()=="ball")
+            if (reinterpret_cast<const char*>(it->GetUserData().pointer) == "ball")
             {                
                 sBall.setPosition(pos.x*SCALE,pos.y*SCALE);
                 sBall.setRotation(angle*DEG);
