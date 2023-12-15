@@ -99,7 +99,10 @@ int main()
         }
 
         if (pause || escapeButtonStatus)
+        {
+            sf::sleep(sf::milliseconds(250));
             continue;
+        }
 
     if (Keyboard::isKeyPressed(Keyboard::Down)) delay=0.05;
 
@@ -122,7 +125,7 @@ int main()
       }
 
     ///////Tick//////
-    if (timer>delay)
+    if (timer>=delay)
       {
         for (int i=0;i<4;i++) { b[i]=a[i]; a[i].y+=1; }
 
@@ -146,6 +149,10 @@ int main()
 
          timer=0;
       }
+    else
+    {
+        sf::sleep(sf::milliseconds(10));
+    }
 
     ///////check lines//////////
     int k=M-1;
