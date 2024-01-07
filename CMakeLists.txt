@@ -1,6 +1,6 @@
-project(16_Games)
-
 cmake_minimum_required(VERSION 3.0)
+
+project(16_Games)
 
 option(BUILD_TETRIS         "Build the Tetris game."                   ON)
 option(BUILD_DOODLE_JUMP    "Build the Doodle Jump game."              ON)
